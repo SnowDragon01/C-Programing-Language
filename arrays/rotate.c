@@ -1,53 +1,44 @@
-#include<stdio.h>
-void rotate_box2(int array[],int si,int ei){
-  for (int i = si,j=ei; i <=j; i++,j--)
+#include <stdio.h>
+void rotate(int array[], int si, int ei)
+{
+  int temp;
+  for (int i = si, j = ei; i < j; i++, j--)
   {
-    int temp;
-    temp=array[i];
-    array[i]=array[j];
-    array[j]=temp;
-  
-  }
-  return;
-}
-void rotate_box1(int array[],int si,int ei){
-  for (int i = si,j=ei; i <=j; i++,j--)
-  {
-    int temp;
-    temp=array[i];
-    array[i]=array[j];
-    array[j]=temp;
-  }
-  return;
-}
-void rotate(int array[]){
-  for (int i = 0,j=8; i <=j; i++,j--)
-  { int temp;
-    temp=array[i];
-    array[i]=array[j];
-    array[j]=temp;
-  
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
   return;
 }
 int main()
 {
-int array[9]={1,2,3,4,5,6,7,8,9};
-rotate(array);
-//   for (int i = 0; i <9; i++)
-//   {
-// printf("%d ",array[i]);
-//   }
-  rotate_box1(array,0,3);
-  // for (int i = 0; i <9; i++)
-  // {
-  //   printf("%d ",array[i]);
-  // }
-  rotate_box2(array,4,8);
- for (int i = 0; i <9; i++)
- {
-  printf("%d ",array[i]);
- }
- 
-return 0;
+  int n, k;
+
+  printf("Enter size of the array:");
+  scanf("%d", &n);
+
+  int array[n];
+
+  printf("Enter the number by which array is to be rotated:");
+  scanf("%d", &k);
+
+  for (int i = 0; i < n; i++)
+  {
+    printf("Enter the number at index %d :", i);
+    scanf("%d", &array[i]);
+  }
+
+  // int array[9]={1,2,3,4,5,6,7,8,9};
+  // step 1:rotate compelete array
+  rotate(array, 0, n - 1);
+  // step 2:rotate: 0-(k-1)
+  rotate(array, 0, k - 1);
+  // step 3:rotate: k-(n-1)
+  rotate(array, k, n - 1);
+  for (int i = 0; i < n; i++)
+  {
+    printf("%d ", array[i]);
+  }
+
+  return 0;
 }
