@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisan Pragati Hub - Smart Farmer Portal</title>
+    <!-- Tailwind CSS for modern and fascinating UI -->
+    <script src="https://tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://unsplash.com');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800">
+
+    <!-- Header / Navbar -->
+    <header class="bg-emerald-700 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-wheat-awn text-amber-400"></i> Kisan Pragati Hub
+            </h1>
+            <span class="bg-emerald-600 px-4 py-1.5 rounded-full text-sm font-semibold border border-emerald-500">
+                <i class="fa-solid fa-clock-rotate-left mr-1"></i> Live Mandi Queue System
+            </span>
+        </div>
+    </header>
+
+    <!-- Hero Section with Happy Farmer Image -->
+    <section class="hero-bg h-[300px] flex items-center justify-center text-center text-white px-4">
+        <div>
+            <h2 class="text-4xl font-extrabold md:text-5xl mb-3 drop-shadow-md">किसान उन्नति और समृद्धि का द्वार</h2>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto font-medium drop-shadow-sm text-emerald-100">
+                अपनी फसल चुनें, सही दाम जानें, और मंडी में अपनी बारी (Queue) सुरक्षित करें।
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="container mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Side: Selection and Token Generator Form -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                <h3 class="text-xl font-bold text-emerald-800 mb-6 flex items-center gap-2 border-b pb-3">
+                    <i class="fa-solid fa-clipboard-list"></i> अपनी बुकिंग और फसल की जानकारी दर्ज करें
+                </h3>
+                
+                <form id="queueForm" class="space-y-6" onsubmit="generateQueueToken(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Region/State Selection -->
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">राज्य / क्षेत्र चुनें (Select Region)</label>
+                            <select id="regionSelect" class="w-full p-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-stone-50" required>
+                                <option value="" disabled selected>-- क्षेत्र चुनें --</option>
+                                <option value="Bihar">Bihar (बिहार)</option>
+                                <option value="Punjab">Punjab (पंजाब)</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh (उत्तर प्रदेश)</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh (मध्य प्रदेश)</option>
+                            </select>
+                        </div>
+
+                        <!-- Crop Selection -->
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">फसल का चयन करें (Select Crop)</label>
+                            <select id="cropSelect" onchange="updatePriceDisplay()" class="w-full p-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-stone-50" required>
+                                <option value="" disabled selected>-- फसल चुनें --</option>
+                                <option value="Wheat">Wheat (गेहूं)</option>
+                                <option value="Rice (Paddy)">Rice / Paddy (धान)</option>
+                                <option value="Mustard">Mustard (सरसों)</option>
+                                <option value="Saffron">Saffron (केसर) - *Fascinating</option>
+                                <option value="Dragon Fruit">Dragon Fruit (कमलम) - *Fascinating</option>
+                                <option value="Strawberry">Strawberry (स्ट्रॉबेरी) - *Fascinating</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Farmer Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">किसान का नाम (Farmer Name)</label>
+                            <input type="text" id="farmerName" placeholder="अपना नाम लिखें" class="w-full p-3 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-stone-50" required>
+                        </div>
+                        <!-- Current Price Display Box -->
+                        <div>
+                            <label class="block text-sm font-bold text-stone-700 mb-2">आज का अनुमानित मंडी भाव (Current Price)</label>
+                            <div id="priceDisplay" class="w-full p-3 bg-amber-50 text-amber-900 border border-amber-200 rounded-xl font-bold text-lg flex items-center justify-between">
+                                <span>₹ 0.00 / क्विंटल</span>
+                                <i class="fa-solid fa-tag text-amber-500"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-ticket"></i> मंडी टोकन और कतार (Queue) जनरेट करें
+                    </button>
+                </form>
+            </div>
+
+            <!-- Live Queue Generation Output Dashboard -->
+            <div id="queueDashboard" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-stone-200 bg-gradient-to-br from-emerald-50 to-white">
+                <div class="flex justify-between items-center border-b border-emerald-100 pb-4 mb-4">
+                    <h3 class="text-xl font-bold text-emerald-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600 animate-pulse"></i> आपका कतार टोकन जनरेट हो गया है!
+                    </h3>
+                    <span id="tokenNumber" class="text-2xl font-black bg-emerald-600 text-white px-4 py-1 rounded-lg">#00</span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-3 bg-white rounded-xl border border-stone-100 shadow-sm">
+                        <p class="text-xs text-stone-500 font-medium">किसान का नाम</p>
+                        <p id="lblFarmer" class="text-base font-bold text-stone-800">-</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-stone-100 shadow-sm">
+                        <p class="text-xs text-stone-500 font-medium">चुना गया क्षेत्र</p>
+                        <p id="lblRegion" class="text-base font-bold text-stone-800">-</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-stone-100 shadow-sm">
+                        <p class="text-xs text-stone-500 font-medium">फसल</p>
+                        <p id="lblCrop" class="text-base font-bold text-emerald-700">-</p>
+                    </div>
+                    <div class="p-3 bg-white rounded-xl border border-stone-100 shadow-sm">
+                        <p class="text-xs text-stone-500 font-medium">अनुमानित कुल भाव</p>
+                        <p id="lblPrice" class="text-base font-bold text-amber-600">-</p>
+                    </div>
+                </div>
+                <p class="text-xs text-center text-emerald-700 mt-4 font-semibold bg-emerald-100/50 py-2 rounded-lg">
+                    ⚠️ कृपया इस डिजिटल टोकन को मंडी गेट पर दिखाएं। आपकी अनुमानित प्रतीक्षा अवधि: <b>25 मिनट</b>।
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side: Fascinating Crops Gallery & Happy Farmer Stories -->
+        <div class="space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                <h3 class="text-lg font-bold text-stone-800 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> Fascinating Crops (आधुनिक फसलें)
+                </h3>
+                
+                <!-- Crop Gallery List -->
+                <div class="space-y-4">
+                    <!-- Saffron -->
+                    <div class="flex gap-3 items-center p-2 rounded-xl hover:bg-stone-50 transition">
+                        <img src="https://unsplash.com" alt="Saffron" class="w-16 h-16 object-cover rounded-lg shadow-inner">
+                        <div>
+                            <h4 class="font-bold text-stone-800 text-sm">कश्मीरी केसर (Saffron)</h4>
+                            <p class="text-xs text-stone-500">दुनिया की सबसे महंगी और आकर्षक मसालों में से एक।</p>
+                        </div>
+                    </div>
+                    <!-- Dragon Fruit -->
+                    <div class="flex gap-3 items-center p-2 rounded-xl hover:bg-stone-50 transition">
