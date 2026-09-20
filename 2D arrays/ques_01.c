@@ -1,3 +1,4 @@
+// array kesare elements ko << 10 >> print karna hai >>
 #include<stdio.h>
 int main()
 {
