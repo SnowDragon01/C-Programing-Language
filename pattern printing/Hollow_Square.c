@@ -1,24 +1,23 @@
-#include<stdio.h>
+#include <stdio.h>
 int main()
 {
-int n;
-printf("Enter a number :");
-scanf("%d",&n);
-for (int i = 0; i < n; i++)
-{
-  for (int j = 0; j < n; j++)
+  int n;
+  printf("Enter a number :");
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++)
   {
-    if (i==0 || i==n || j==0 || j== n)
-    {
-      printf("* ");
+    for (int j = 1; j <= n; j++)
+    { // ye condition borders pe * print karne ke condition ko satisfy karta hai>>
+      if (i == 1 || i == n || j == 1 || j == n)
+      { // space dene se bigad jayega square ka shape>>
+        printf("*");
+      }
+      else
+      {
+        printf(" ");
+      }
     }
-    else
-    {
-      printf(" ");
-    }
-    
+    printf("\n");
   }
-  printf("\n");
-}
-return 0;
+  return 0;
 }

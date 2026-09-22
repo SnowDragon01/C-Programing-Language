@@ -1,5 +1,5 @@
-// user se matrix input leni hai or uska transpose print karna hai>>
-// we will take a 3x3 matrix here>.
+// matrix leni hai or uska transpose print karna hai>>
+// we will take a 4x2 matrix here>.
 #include <stdio.h>
 int main()
 {
